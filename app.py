@@ -4,10 +4,14 @@ import mysql.connector
 import db
 
 app = Flask(__name__)
+app.debug = True
 
 def mysql_connect():
     # constants right in here
     return mysql.connector.connect(user='root', password = 'password', host='some-mysql')
+
+con = mysql_connect()
+db.create_database(con, con.cursor())
 
 @app.route("/")
 def index():
