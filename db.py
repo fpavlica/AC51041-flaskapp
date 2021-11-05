@@ -16,7 +16,7 @@ TABLES['notes'] = \
 
 def create_database(con, cursor):
     print("creating database")
-    cursor.execute("SHOW DATABASES")
+    # cursor.execute("SHOW DATABASES")
     
     # create db itself
     try:
@@ -32,7 +32,7 @@ def create_database(con, cursor):
         print(f"Could not set database on connection: {err}")
 
     print("creating tables")
-    for key, value in TABLES:
+    for key, value in TABLES.items():
         print((key, value))
         try:
             cursor.execute(value)
@@ -58,7 +58,7 @@ def add_note(con, cursor, author, note):
     con.close()
 
 def get_all_notes(con, cursor):
-    get_notes_sql = """SELECT (ID, author, note) FROM testdb.notes"""
+    get_notes_sql = """SELECT ID, author, note FROM testdb.notes"""
     cursor.execute(get_notes_sql)
     result = cursor.fetchall()
     return result
